@@ -109,9 +109,6 @@ Its role is strictly to guarantee structural validity and deterministic complian
 
 ---
 
-Kubecurity enables reliable, reproducible, and verifiable automated correction of Kubernetes configurations by bridging the gap between LLM reasoning and formal schema enforcement.
----
-
 ## 🔁 Replication Workflow
 
 1. **Dataset Preparation**

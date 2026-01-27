@@ -1,167 +1,131 @@
-# Replication Package  
+# Replication Package
 ## Towards Secure and Reliable Kubernetes Configurations
 
 This replication package accompanies the paper:
 
 > **Towards Secure and Reliable Kubernetes Configurations: A Taxonomy of Misconfigurations and Automated Correction with Large Language Models**
 
-submitted to **The 23rd International Conference on Mining Software Repositories (MSR 2026)**.
+submitted to **The ACM Joint European Software Engineering Conference and Symposium on the Foundations of Software Engineering (FSE 2026)**.
 
-The package provides all datasets, tools, and scripts required to **replicate the empirical analyses, taxonomy construction, severity assessment, and LLM-based correction experiments** presented in the paper.
+This replication package is distributed as a **fully self-contained virtual machine image**.  
+**All datasets, source code, executable artifacts, tools, and dependencies are already included inside the image.**  
+No external installation or environment configuration is required.
 
 ---
 
-## 📦 Contents
+## 🎥 Video Demonstration
 
-This repository contains the following components:
+A video demonstrating the tool, execution environment, and replication workflow is available at:
 
-### 📁 Datasets
-- **Stack Overflow Dataset**  
-  Curated Kubernetes-related posts (2015–2024) used to construct the misconfiguration taxonomy.
-- **GitHub Kubernetes Manifests**  
-  10,000 schema-validated Kubernetes YAML configuration files collected from public GitHub repositories.
-- **Helm Charts Dataset**  
-  Kubernetes configurations from incubator and stable Helm projects used to study misconfiguration evolution.
+* https://youtu.be/PzxQsXRym3Y
 
-### 📊 Taxonomy & Mapping
-- The complete **taxonomy of Kubernetes misconfigurations** (5 main categories, 21 subcategories).
-- Mapping tables aligning Datree, Kube-Score, and Snyk rule identifiers with taxonomy categories.
-- Severity normalization into **Low / Medium / High** levels.
+---
 
-### 🔍 Misconfiguration Detection
-- Scripts to execute and aggregate results from:
-  - **Datree**
-  - **Kube-Score**
-  - **Snyk**
-- Deduplication and consolidation of overlapping detections across tools.
+## 📦 Contents (Inside the VM Image)
+
+The virtual machine image contains all components required to reproduce the experiments presented in the paper.
+
+### 📊 Taxonomy
+* Complete taxonomy of Kubernetes misconfigurations  
+* Five main categories and twenty-one subcategories  
+* Severity levels normalized into **Low / Medium / High**
+
+### 💻 Source Code & Executable
+* Full source code of the detection and correction system  
+* Ready-to-run executable **JAR**  
+* Configuration files and scripts used in the experiments
+
+### 🔍 Misconfiguration Detection Tools
+The following tools are pre-installed and pre-configured inside the VM:
+* **Datree**
+* **Kube-Score**
+* **Snyk**
+
+Detection results are aggregated, normalized, and deduplicated automatically.
 
 ### 🤖 LLM-Based Correction
-- Prompt templates corresponding to the three experimental settings:
-  1. Configuration only  
-  2. Configuration + misconfiguration type  
-  3. Configuration + type + detailed description
-- Evaluation scripts for:
-  - GPT-3.5-Turbo  
-  - Mistral-7B  
-  - LLaMA-3.1-70B  
-  - DeepSeek-R1  
-  - Qwen-2.5-7B  
+* Prompt templates corresponding to multiple correction settings:
+  * Configuration only  
+  * Configuration + misconfiguration type  
+  * Configuration + type + short description  
+* Support for multiple Large Language Models
+
+---
 
 ## 🛡️ Kubecurity: Schema-Guided Kubernetes Configuration Correction
 
-Kubecurity is a schema-guided, rule-based correction framework designed to improve the reliability of Large Language Model (LLM)–generated Kubernetes configurations.
+Kubecurity is a schema-guided, rule-based correction framework integrated into the replication package.
 
-While LLMs are effective at reasoning about misconfigurations and proposing semantic fixes, their outputs may violate Kubernetes structural constraints, including missing required fields, incorrect nesting, invalid data types, or schema-incompatible values. Kubecurity addresses this limitation by enforcing **deterministic compliance with official Kubernetes JSON schemas**.
+While Large Language Models are effective at reasoning about Kubernetes misconfigurations, their outputs may violate structural constraints, such as missing required fields, incorrect nesting, or invalid data types. Kubecurity enforces **deterministic compliance with official Kubernetes JSON schemas**, ensuring that corrected configurations are syntactically valid and parsable.
 
 ### Design Principles
-
-Kubecurity is built on the following principles:
-
-- **Schema Awareness**  
-  Each Kubernetes object is validated against its corresponding official JSON schema.
-- **Deterministic Correction**  
-  Fixes are rule-based and reproducible, independent of probabilistic model behavior.
-- **LLM Complementarity**  
-  Kubecurity does not replace LLM reasoning but reinforces it with structural guarantees.
-- **Minimal Intervention**  
-  Only schema-violating elements are modified or reconstructed.
+* **Schema Awareness** – validation against official Kubernetes JSON schemas  
+* **Deterministic Correction** – reproducible, rule-based fixes  
+* **LLM Complementarity** – reinforces LLM reasoning without replacing it  
+* **Minimal Intervention** – only schema-violating elements are modified  
 
 ### Correction Workflow
-
-Kubecurity operates in two complementary stages:
-
-1. **Pre-LLM Validation**
-   - Repairs deterministic structural issues (e.g., invalid field placement, missing mandatory attributes)
-   - Normalizes indentation, ordering, and object hierarchy
-
-2. **Post-LLM Validation**
-   - Re-validates LLM-generated configurations
-   - Corrects residual schema violations introduced during generation
-   - Ensures full compliance before final evaluation
+* **Pre-LLM Validation**
+  * Repairs deterministic structural issues  
+  * Normalizes object hierarchy and indentation  
+* **Post-LLM Validation**
+  * Re-validates LLM-generated configurations  
+  * Corrects residual schema violations  
 
 ### Correction Capabilities
+* Insert missing mandatory fields  
+* Resolve type mismatches (e.g., string vs integer)  
+* Reconstruct invalid configuration trees  
+* Remove obsolete or invalid sections  
+* Enforce canonical Kubernetes object structure  
 
-Kubecurity performs the following actions:
-
-- Reconstructs configuration trees to ensure correct parent–child relationships
-- Inserts missing required fields using schema defaults
-- Resolves type mismatches (e.g., string vs integer)
-- Removes obsolete or invalid sections
-- Enforces canonical Kubernetes object structure
-
-### Role in the Experimental Pipeline
-
-In the MSR 2026 experiments, Kubecurity is applied after LLM-based correction prompts. A configuration is considered **successfully corrected** only if:
-
-1. It passes Kubernetes JSON schema validation, and  
-2. It is no longer flagged by Datree, Kube-Score, or Snyk.
-
-The integration of Kubecurity significantly improves correction robustness, reducing parsing failures and eliminating structurally invalid outputs. When combined with LLM reasoning, the framework achieves correction accuracy exceeding **97%**, demonstrating the effectiveness of hybrid semantic–syntactic correction.
-
-### Limitations
-
-Kubecurity focuses exclusively on **schema-level correctness**. It does not:
-- Infer semantic intent beyond schema definitions
-- Optimize configurations for performance or best practices
-- Replace security reasoning performed by detection tools or LLMs
-
-Its role is strictly to guarantee structural validity and deterministic compliance.
+A configuration is considered **successfully corrected** only if:
+* It passes Kubernetes JSON schema validation, and  
+* It is no longer flagged by Datree, Kube-Score, or Snyk  
 
 ---
 
 ## 🔁 Replication Workflow
 
-1. **Dataset Preparation**
-   - Collect Kubernetes YAML files
-   - Validate schemas using `kubeval`
+* Load Kubernetes configuration files  
+* Detect misconfigurations using Datree, Kube-Score, and Snyk  
+* Map detections to taxonomy categories and severity levels  
+* Apply LLM-based correction  
+* Enforce deterministic schema compliance using Kubecurity  
 
-2. **Misconfiguration Detection**
-   - Run Datree, Kube-Score, and Snyk
-   - Normalize severity and remove duplicate detections
+---
 
-3. **Taxonomy & Severity Analysis**
-   - Map detections to taxonomy categories
-   - Aggregate results by Kubernetes object type and category
+## ▶️ How to Run
 
-4. **LLM-Based Correction**
-   - Apply prompt configurations (Experiments 1–3)
-   - Validate corrected outputs using schemas and detection tools
+* Launch the provided OVH virtual machine image  
+* Open a terminal inside the VM  
+* Run the tool:
+  ```bash
+  java -jar KubeCurty.jar
 
-5. **Schema-Guided Correction**
-   - Apply Kubecurity to enforce deterministic schema compliance
-   - Re-evaluate corrected configurations
+
+## ⚠️ Notes
+
+Some functionalities may require user-provided credentials (e.g., API keys).
 
 ---
 
 ## 📄 Citation
 
-If you use this replication package, please cite:
+If you use this replication package, please cite the corresponding **FSE 2026** paper.  
+(Citation details will be added upon acceptance.)
 
-
+---
 
 ## 📜 License
 
 MIT License
 
-Copyright (c) 2026
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
-
-## 📌 Notes
-
-To be added 
-
+---
 
 ## ⚠️ Work in Progress
+
 This replication package will be extended with:
-
-Additional datasets
-
-New Kubecurity Version
-
-Fully automated experiment pipelines
-
+* Additional datasets
+* New Kubecurity versions
+* Fully automated experiment pipelines

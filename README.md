@@ -129,8 +129,6 @@ This package is designed to support future research. It can be extended to:
 
 ## 📚 Citation
 
-If you use this repository, please cite:
-
 ```bibtex
 @inproceedings{ghorab2026aiware,
   title={Kubernetes Misconfigurations in the Wild: Taxonomy, Evolution, and Automated Repair with Large Language Models},
@@ -138,11 +136,24 @@ If you use this repository, please cite:
   booktitle={AIWARE 2026},
   year={2026}
 }
+```
+
 
 ## 📬 Contact
 
-For questions, issues, or reproducibility concerns, please open an issue in this repository.
+```text
+Mostafa Anouar Ghorab
+Department of Computer Science and Software Engineering
+Université Laval, Quebec City, Canada
+Email: mostafa-anouar.ghorab.1@ulaval.ca
 
+Alternatively, feel free to open an issue in this repository.
+
+```
 ## 📝 License
 
-This project is released for academic and research purposes.
+This project is licensed under the **MIT License**.
+
+You are free to use, modify, and distribute this software for research and academic purposes, provided that proper attribution is given.
+
+See the `LICENSE` file for more details.

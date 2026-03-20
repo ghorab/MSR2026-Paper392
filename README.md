@@ -1,115 +1,132 @@
-# Replication Package – AIWARE 2026
+# 🧪 Replication Package – AIWARE 2026
 
-## Kubernetes Misconfigurations in the Wild:
+## 🔐 Kubernetes Misconfigurations in the Wild  
 ### Taxonomy, Evolution, and Automated Repair with Large Language Models
 
 ---
 
-## Overview
+## 📖 Overview
 
-This repository provides the replication package for the AIWARE 2026 paper:
+This repository provides the **official replication package** for the AIWARE 2026 paper:
 
-*Kubernetes Misconfigurations in the Wild: Taxonomy, Evolution, and Automated Repair with Large Language Models*
+> *Kubernetes Misconfigurations in the Wild: Taxonomy, Evolution, and Automated Repair with Large Language Models*
 
-The objective of this package is to ensure transparency, reproducibility, and reusability of the results. It includes all datasets, scripts, and experimental artifacts required to reproduce the findings related to:
+The package is designed to ensure **transparency, reproducibility, and extensibility**. It includes all necessary artifacts to reproduce the results associated with the following research questions:
 
-- RQ1: Taxonomy construction of Kubernetes misconfigurations  
-- RQ2: Severity analysis across object types and categories  
-- RQ3: Evolution of misconfigurations across project maturity  
-- RQ4: LLM-based automated correction and schema-guided validation  
-
----
-
-## Repository Structure
-
-The repository is organized as follows:
-
-.
-├── data/            # Datasets used across all research questions  
-├── taxonomy/        # Taxonomy definitions and mapping tables  
-├── scripts/         # Data collection and preprocessing pipelines  
-├── experiments/     # LLM prompts, configurations, and outputs  
-├── kubecurity/      # Schema-guided correction framework  
-├── results/         # Aggregated results and evaluation outputs  
+- **RQ1** — Taxonomy construction of Kubernetes misconfigurations  
+- **RQ2** — Severity analysis across object types and categories  
+- **RQ3** — Evolution of misconfigurations across project maturity  
+- **RQ4** — LLM-based automated correction and schema-guided validation  
 
 ---
 
-## Reproducing the Results
+## 🗂️ Repository Structure
+├── 📁 data/ # Datasets used across all research questions
+├── 📁 taxonomy/ # Taxonomy definitions and mappings
+├── 📁 scripts/ # Data collection and preprocessing pipelines
+├── 📁 experiments/ # LLM prompts, configurations, and outputs
+├── 📁 kubecurity/ # Schema-guided correction framework
+├── 📁 results/ # Aggregated results and evaluation logs
 
-### 1. Data Preparation
-Datasets are available in the `data/` directory. They can also be regenerated using the provided scripts for:
-- Stack Overflow extraction (RQ1)  
-- GitHub Kubernetes configurations (RQ2, RQ4)  
-- Helm charts (RQ3)  
 
-### 2. Taxonomy Construction (RQ1)
-- Run the BERTopic pipeline from `scripts/`  
+---
+
+## 🔁 Reproducing the Results
+
+### ⚙️ 1. Data Preparation
+- Use datasets available in `data/`  
+- Or regenerate them using provided scripts:
+  - Stack Overflow extraction (**RQ1**)  
+  - GitHub Kubernetes configurations (**RQ2, RQ4**)  
+  - Helm charts (**RQ3**)  
+
+---
+
+### 🧠 2. Taxonomy Construction (RQ1)
+- Execute BERTopic pipeline from `scripts/`  
 - Reproduce hierarchical clustering and taxonomy generation  
 
-### 3. Severity Analysis (RQ2)
-- Execute misconfiguration detection tools:  
+---
+
+### 📊 3. Severity Analysis (RQ2)
+- Run misconfiguration detection tools:
   - Datree  
   - Snyk  
   - KubeScore  
-- Apply severity normalization and taxonomy mapping  
+- Apply normalization and taxonomy mapping  
 
-### 4. Evolution Analysis (RQ3)
-- Compare incubator and stable Helm charts  
-- Run analysis scripts to compute correction and emergence metrics  
+---
 
-### 5. LLM-Based Correction (RQ4)
+### 🔄 4. Evolution Analysis (RQ3)
+- Compare incubator vs stable Helm charts  
+- Compute:
+  - Correction rates  
+  - Emerged misconfigurations  
+
+---
+
+### 🤖 5. LLM-Based Correction (RQ4)
 - Use prompt templates from `experiments/`  
-- Execute the four experimental settings  
+- Run the four experimental configurations  
 - Evaluate outputs using:
   - Kubernetes schema validation  
   - Detection tools  
 
-Optional:
-- Enable the Kubecurity framework for schema-guided correction (Experiment 4)
+#### 🛡️ Optional: Kubecurity Integration
+Enable **Kubecurity** to enforce schema compliance and significantly improve correction accuracy (Experiment 4).
 
 ---
 
-## Requirements
+## ⚙️ Requirements
 
-- Python 3.10 or higher  
-- Access to:
+- 🐍 Python ≥ 3.10  
+- 🔑 API access:
   - Stack Exchange API  
   - GitHub API  
-- Kubernetes validation tools  
-- Misconfiguration detection tools (Datree, Snyk, KubeScore)  
+- ☸️ Kubernetes validation tools  
+- 🔍 Detection tools:
+  - Datree  
+  - Snyk  
+  - KubeScore  
 
-Optional:
-- GPU for large-scale experiments  
-- Access to LLM APIs or local models  
-
----
-
-## Reproducibility Statement
-
-All results reported in the paper can be reproduced using this package.  
-Intermediate outputs and logs are provided to ensure:
-
-- Full traceability  
-- Deterministic evaluation  
-- Independent verification  
+**Optional:**
+- ⚡ GPU for large-scale experiments  
+- 🤖 Access to LLM APIs or local models  
 
 ---
 
-## Extensibility
+## 🔬 Reproducibility Statement
 
-This replication package is designed to support further research. It can be extended to:
+All results reported in the paper can be reproduced using this package.
 
-- Evaluate additional or more recent LLMs  
-- Extend the taxonomy with new misconfiguration categories  
-- Integrate alternative detection tools  
+We provide:
+- ✅ Intermediate outputs  
+- ✅ Evaluation logs  
+- ✅ Full processing pipelines  
+
+This ensures:
+- **Traceability**  
+- **Deterministic evaluation**  
+- **Independent verification**  
+
+---
+
+## 🚀 Extensibility
+
+This package is designed to support future research. It can be extended to:
+
+- Integrate newer or alternative LLMs  
+- Extend the taxonomy with additional categories  
+- Incorporate new detection tools  
 - Apply the methodology to other configuration systems  
 
 ---
 
-## Citation
+## 📚 Citation
 
 If you use this repository, please cite:
 
+```bibtex
 @inproceedings{ghorab2026aiware,
   title={Kubernetes Misconfigurations in the Wild: Taxonomy, Evolution, and Automated Repair with Large Language Models},
   author={Ghorab, Mostafa Anouar and Abdel Latif, Ahmad and Saied, Mohamed Aymen},
@@ -117,8 +134,10 @@ If you use this repository, please cite:
   year={2026}
 }
 
----
+## 📬 Contact
 
-## Contact
+For questions, issues, or reproducibility concerns, please open an issue in this repository.
 
-For questions or reproducibility issues, please open an issue in this repository.
+## 📝 License
+
+This project is released for academic and research purposes.

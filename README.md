@@ -22,10 +22,15 @@ The package is designed to ensure **transparency, reproducibility, and extensibi
 
 ## 🗂️ Repository Structure
 ├── 📁 data/ # Datasets used across all research questions
+
 ├── 📁 taxonomy/ # Taxonomy definitions and mappings
+
 ├── 📁 scripts/ # Data collection and preprocessing pipelines
+
 ├── 📁 experiments/ # LLM prompts, configurations, and outputs
+
 ├── 📁 kubecurity/ # Schema-guided correction framework
+
 ├── 📁 results/ # Aggregated results and evaluation logs
 
 
